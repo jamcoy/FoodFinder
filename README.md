@@ -15,6 +15,6 @@ Getting up to speed with node applications...
  
 **[GeoJSON](http://geojson.org/)** - Used to store geographical locations.  Supported by Mongoose, enabling the definition of a geospatial path in a schema.
 
-**[REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)** - Stateless interface to the application's database using JSON. Uses post, get, put and delete.
+**[REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)** - Stateless interface to the application's database using JSON.
 
 **[Bootstrap](http://getbootstrap.com/)** - Provides a responsive framework to the application.
