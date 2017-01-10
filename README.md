@@ -1,6 +1,6 @@
 #Food finder
 
-Getting up to speed with node applications...
+Currently a work in progress.
 
 ##Technologies
 **[Node.js](https://nodejs.org/)** - JavaScript runtime using an event-driven, non-blocking I/O model.  
