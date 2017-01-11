@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
 
-var sendJsonResponse = function(res, status, content) {
+var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);
 };
@@ -22,7 +22,7 @@ module.exports.reviewsCreate = function(req, res) {
                 }
             );
     } else {
-        sendJsonResponse(res, 404, {
+        sendJSONresponse(res, 404, {
             "message": "Not found, locationid required"
         });
     }
@@ -117,14 +117,14 @@ module.exports.reviewsReadOne = function(req, res) {
                             sendJsonResponse(res, 200, response);
                         }
                     } else {
-                        sendJsonResponse(res, 404, {
+                        sendJSONresponse(res, 404, {
                             "message": "No reviews found"
                         });
                     }
                 }
             );
     } else {
-        sendJsonResponse(res, 404, {
+        sendJSONresponse(res, 404, {
             "message": "Not found, locationid and reviewid are both required"
         });
     }

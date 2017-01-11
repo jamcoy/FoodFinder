@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
 
+// seems current version is working in meters and not radians...
 var theEarth = (function(){
     var earthRadius = 6371; // km
     var getDistanceFromRads = function(rads) {
@@ -61,10 +62,11 @@ module.exports.locationsListByDistance = function(req, res) {
     };
     var geoOptions = {
         spherical: true,
-        maxDistance: theEarth.getRadsFromDistance(maxDistance),
+        //maxDistance: theEarth.getRadsFromDistance(maxDistance),
+        maxDistance: maxDistance,
         num: 10
     };
-    if (!lng || !lat || !maxDistance) {
+    if ((!lng && lng !== 0) || (!lat && lat !==0) || !maxDistance) {
         console.log('locationsListByDistance missing params');
         sendJSONresponse(res, 404, {
             "message": "lng, lat and maxDistance query parameters are all required"
@@ -88,8 +90,10 @@ module.exports.locationsListByDistance = function(req, res) {
 var buildLocationList = function(req, res, results, stats) {
     var locations = [];
     results.forEach(function(doc) {
+        //console.log(doc.dis);
         locations.push({
-            distance: theEarth.getDistanceFromRads(doc.dis),
+            //distance: theEarth.getDistanceFromRads(doc.dis),
+            distance: doc.dis,
             name: doc.obj.name,
             address: doc.obj.address,
             rating: doc.obj.rating,
@@ -106,18 +110,18 @@ module.exports.locationsReadOne = function(req, res) {
             .findById(req.params.locationid)
             .exec(function(err, location) {
                 if (!location) {
-                    sendJsonResponse(res, 404, {
+                    sendJSONresponse(res, 404, {
                         "message": "locationid not found"
                     });
                     return;
                 } else if (err) {
-                    sendJsonResponse(res, 404, err);
+                    sendJSONresponse(res, 404, err);
                     return;
                 }
-                sendJsonResponse(res, 200, location);
+                sendJSONresponse(res, 200, location);
             });
     } else {
-        sendJsonResponse(res, 404, {
+        sendJSONresponse(res, 404, {
             "message": "No locationid in request"
         });
     }
